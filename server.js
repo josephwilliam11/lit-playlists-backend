@@ -9,13 +9,13 @@ let redirect_uri =
   'http://localhost:8888/callback'
 
 app.get('/login', function(req, res) {
-  res.redirect('https://accounts.spotify.com/authorize?' +
+  res.json({url: 'https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
       client_id: process.env.SPOTIFY_CLIENT_ID,
       scope: 'user-read-private user-read-email',
       redirect_uri
-    }))
+    })})
 })
 
 app.get('/callback', function(req, res) {
