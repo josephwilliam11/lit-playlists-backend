@@ -1,21 +1,11 @@
 let express = require('express')
 let request = require('request')
 let querystring = require('querystring')
-let bodyParser = require("body-parser");
-
-let logger = require("morgan");
-let mongoose = require("mongoose");
-
-const db = require("./models");
-
-mongoose.Promise = Promise;
-
+// const mongoose = require('mongoose')
 
 let app = express()
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
+// mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/spotifyUsers");
 
 let redirect_uri = 
   process.env.REDIRECT_URI || 
@@ -26,7 +16,7 @@ app.get('/login', function(req, res) {
     querystring.stringify({
       response_type: 'code',
       client_id: process.env.SPOTIFY_CLIENT_ID,
-      scope: 'user-read-private user-read-email user-read-playback-state',
+      scope: 'user-read-private user-read-email user-read-playback-state user-read-birthdate streaming playlist-modify-public',
       redirect_uri
     })})
     // console.log(res);
