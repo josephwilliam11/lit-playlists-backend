@@ -19,60 +19,7 @@ app.get('/login', function(req, res) {
       scope: 'user-read-private user-read-email user-read-playback-state user-read-birthdate streaming playlist-modify-public',
       redirect_uri
     })})
-    // console.log(res);
 })
-
-
-app.post('/login/search', function(req, res) {
-
-    db.User.create(req.body)
-    .then(function(dbUser) {
-       res.json(dbUser)
-    })
-    .catch(function(err) {
-        res.json(err)
-    })
-})
-
-
-
-app.post('/login/searchterm', function(req, res) {
-
-  console.log("req body", req.body)
-    db.Search.create(req.body)
-    .then(function(dbSearch) {
-       res.json(dbSearch)
-    })
-    .catch(function(err) {
-        res.json(err)
-    })
-})
-
-//mongo stuff
-
-const databaseUrl = 'mongodb://localhost/litDB';
-
-if (process.env.MONGODB_URI) {
-  mongoose.connect(process.env.MONGODB_URI);
-} else {
-  mongoose.connect(databaseUrl)
-}
-
-const mc = mongoose.connection;
-
-mc.on('error', function(err){
-  console.log("Mongoose Error: ", err);
-});
-
-mc.once('open', function() { 
-  console.log('Mongoose connection successful.')
-}); 
-
-// app.use((req, res, next) => {
-//   console.log("What is our req.url", req.url);
-  
-//   next();
-// })
 
 app.get('/callback', function(req, res) {
   let code = req.query.code || null
