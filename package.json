@@ -1,10 +1,10 @@
 {
-  "name": "oauth-bridge-template",
+  "name": "lit-playlists-backend",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js micro"
   },
   "dependencies": {
     "express": "^4.15.4",
@@ -12,6 +12,7 @@
     "mongoose": "^5.0.17",
     "morgan": "^1.9.0",
     "querystring": "^0.2.0",
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "micro": "latest"
   }
 }
