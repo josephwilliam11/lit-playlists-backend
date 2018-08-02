@@ -40,7 +40,7 @@ app.get('/callback', function(req, res) {
     },
     json: true
   }
-  request.get(authOptions, function(error, response, body) {
+  request.post(authOptions, function(error, response, body) {
     var { access_token, refresh_token } = body;
     let uri = process.env.FRONTEND_URI || 'http://localhost:3000'
     res.redirect(uri + '/#' + querystring.stringify({
@@ -50,9 +50,11 @@ app.get('/callback', function(req, res) {
   })
 })
 
-
+if (process.env.NODE_ENV === 'production') { 	app.use(express.static('client/build')); }
+app.get('*', (request, response) => { 	response.sendFile(path.join(__dirname, 'client/build', 'index.html')); });
 
 
 let port = process.env.PORT || 8888
 console.log(`Listening on port ${port}. Go /login to initiate authentication flow.`)
 app.listen(port)
+
